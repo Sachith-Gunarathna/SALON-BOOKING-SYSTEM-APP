@@ -46,7 +46,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   child: const Icon(
                     Icons.lock_reset,
                     size: 100,
-                    color: Color(0xFFF99000),
+                    color: Color(0xFF480177),
                   ),
                 ),
               ),
@@ -90,7 +90,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF99000), // තැඹිලි පාට
+                    backgroundColor: const Color(0xFF480177), // Deep Purple
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -143,7 +143,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 color: Colors.orange.shade50,
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: const Color(0xFFF99000), size: 28),
+              child: Icon(icon, color: const Color(0xFF480177), size: 28),
             ),
             const SizedBox(width: 16),
             Column(

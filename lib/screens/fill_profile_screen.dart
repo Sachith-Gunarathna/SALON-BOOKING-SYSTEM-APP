@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon_booking_app/main.dart';
 
 class FillProfileScreen extends StatefulWidget {
   const FillProfileScreen({super.key});
@@ -48,7 +49,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF99000),
+                          color: const Color(0xFF480177),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(Icons.edit, color: Colors.white, size: 20),
@@ -136,9 +137,13 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     // හෝම් ස්ක්‍රීන් එකට යන්න
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MainLayout()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF99000),
+                    backgroundColor: const Color(0xFF480177),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),

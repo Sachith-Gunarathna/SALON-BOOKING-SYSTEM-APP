@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:salon_booking_app/screens/home_screen.dart';
 import 'package:salon_booking_app/screens/my_bookmark_screen.dart';
 import 'package:salon_booking_app/screens/splash_screen.dart';
+import 'package:salon_booking_app/screens/explore_screen.dart';
+import 'package:salon_booking_app/screens/inbox_screen.dart';
+import 'package:salon_booking_app/screens/profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,8 +19,22 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Salon Booking App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF99000)),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF480177),
+          primary: const Color(0xFF480177),
+          secondary: const Color(0xFFFFD700), // Gold accent
+        ),
         useMaterial3: true,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF480177),
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            elevation: 0,
+          ),
+        ),
       ),
       home: const SplashScreen(),
     );
@@ -37,10 +54,10 @@ class _MainLayoutState extends State<MainLayout> {
   // අපි යටින් ටැබ් ඔබද්දී මාරු වෙන්න ඕනේ පේජ් ටික මෙතන තියෙනවා
   final List<Widget> _screens = [
     const HomeScreen(),
-    const Center(child: Text("Explore Screen", style: TextStyle(fontSize: 24))), // දැනට Placeholder
-    const MyBookmarkScreen(), // දැනට Placeholder
-    const Center(child: Text("Inbox Screen", style: TextStyle(fontSize: 24))), // දැනට Placeholder
-    const Center(child: Text("Profile Screen", style: TextStyle(fontSize: 24))), // දැනට Placeholder
+    const ExploreScreen(),
+    const MyBookmarkScreen(),
+    const InboxScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -58,7 +75,7 @@ class _MainLayoutState extends State<MainLayout> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFFF99000), // තැඹිලි පාට
+        selectedItemColor: const Color(0xFF480177), // Deep Purple
         unselectedItemColor: Colors.grey[400],
         showUnselectedLabels: true,
         items: const [

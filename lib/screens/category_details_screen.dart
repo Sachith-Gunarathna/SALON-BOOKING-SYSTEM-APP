@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon_booking_app/screens/salon_details_screen.dart';
 
 class CategoryDetailsScreen extends StatelessWidget {
   final String categoryName;
@@ -38,7 +39,7 @@ class CategoryDetailsScreen extends StatelessWidget {
                   hintText: "Search...",
                   hintStyle: TextStyle(color: Colors.grey[400]),
                   prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
-                  suffixIcon: const Icon(Icons.tune, color: Color(0xFFF99000)), // Filter Icon
+                  suffixIcon: const Icon(Icons.tune, color: Color(0xFF480177)), // Filter Icon
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(vertical: 16),
                 ),
@@ -52,6 +53,7 @@ class CategoryDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               children: [
                 _buildSalonCard(
+                  context: context,
                   name: "Belle Curls",
                   address: "0993 Novick Parkway",
                   distance: "1.2 km",
@@ -59,6 +61,7 @@ class CategoryDetailsScreen extends StatelessWidget {
                   isBookmarked: true,
                 ),
                 _buildSalonCard(
+                  context: context,
                   name: "Pretty Parlor",
                   address: "7 Doe Crossing Pass",
                   distance: "2.1 km",
@@ -66,6 +69,7 @@ class CategoryDetailsScreen extends StatelessWidget {
                   isBookmarked: false,
                 ),
                 _buildSalonCard(
+                  context: context,
                   name: "That's Cut!",
                   address: "883 Jackson Hill",
                   distance: "8.4 km",
@@ -73,6 +77,7 @@ class CategoryDetailsScreen extends StatelessWidget {
                   isBookmarked: false,
                 ),
                 _buildSalonCard(
+                  context: context,
                   name: "Ace of Fades",
                   address: "3 Clyde Gallagher Road",
                   distance: "3.2 km",
@@ -80,6 +85,7 @@ class CategoryDetailsScreen extends StatelessWidget {
                   isBookmarked: true,
                 ),
                 _buildSalonCard(
+                  context: context,
                   name: "Hair Don't Fade",
                   address: "982 Linden Trail",
                   distance: "4.4 km",
@@ -95,84 +101,94 @@ class CategoryDetailsScreen extends StatelessWidget {
     );
   }
 
-  // සැලෝන් කාඩ් එක හදන Custom Widget එක
   Widget _buildSalonCard({
+    required BuildContext context,
     required String name,
     required String address,
     required String distance,
     required String rating,
     required bool isBookmarked,
   }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.08),
-            spreadRadius: 2,
-            blurRadius: 15,
-            offset: const Offset(0, 5),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SalonDetailsScreen(salonName: name),
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // පින්තූරය තියෙන කොටුව
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(16),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withValues(alpha: 0.08),
+              spreadRadius: 2,
+              blurRadius: 15,
+              offset: const Offset(0, 5),
             ),
-            child: const Icon(Icons.store, color: Colors.grey, size: 40),
-          ),
-          const SizedBox(width: 16),
+          ],
+        ),
+        child: Row(
+          children: [
+            // පින්තූරය තියෙන කොටුව
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Icon(Icons.store, color: Colors.grey, size: 40),
+            ),
+            const SizedBox(width: 16),
 
-          // විස්තර ටික
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                Text(
-                  address,
-                  style: TextStyle(color: Colors.grey[600], fontSize: 13),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(Icons.location_on, color: Color(0xFFF99000), size: 16),
-                    const SizedBox(width: 4),
-                    Text(distance, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                    const SizedBox(width: 16),
-                    const Icon(Icons.star_half, color: Color(0xFFF99000), size: 16),
-                    const SizedBox(width: 4),
-                    Text(rating, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                  ],
-                ),
-              ],
+            // විස්තර ටික
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 8),
+                  Text(
+                    address,
+                    style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(Icons.location_on, color: Color(0xFF480177), size: 16),
+                      const SizedBox(width: 4),
+                      Text(distance, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                      const SizedBox(width: 16),
+                      const Icon(Icons.star_half, color: Color(0xFF480177), size: 16),
+                      const SizedBox(width: 4),
+                      Text(rating, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          // Bookmark Icon එක (Fill කරපු එකද, Outline එකද කියලා තීරණය කරනවා)
-          IconButton(
-            icon: Icon(
-              isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-              color: const Color(0xFFF99000),
-              size: 28,
+            // Bookmark Icon එක (Fill කරපු එකද, Outline එකද කියලා තීරණය කරනවා)
+            IconButton(
+              icon: Icon(
+                isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                color: const Color(0xFF480177),
+                size: 28,
+              ),
+              onPressed: () {
+                // Bookmark එක වෙනස් කරන Action එක
+              },
             ),
-            onPressed: () {
-              // Bookmark එක වෙනස් කරන Action එක
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

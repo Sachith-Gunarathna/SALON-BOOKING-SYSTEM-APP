@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salon_booking_app/screens/fill_profile_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -98,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   Checkbox(
                     value: _rememberMe,
-                    activeColor: const Color(0xFFF99000),
+                    activeColor: const Color(0xFF480177),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     onChanged: (value) {
@@ -122,10 +123,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: ElevatedButton(
                   onPressed: () {
 
-                    print("Sign up clicked");
+                    debugPrint("Sign up clicked");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const FillProfileScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF99000),
+                    backgroundColor: const Color(0xFF480177),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -182,7 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: const Text(
                       "Sign in",
                       style: TextStyle(
-                          color: Color(0xFFF99000),
+                          color: Color(0xFF480177),
                           fontWeight: FontWeight.bold),
                     ),
                   ),

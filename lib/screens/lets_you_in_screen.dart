@@ -105,7 +105,7 @@ class LetsYouInScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF99000),
+                    backgroundColor: const Color(0xFF480177),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -141,7 +141,7 @@ class LetsYouInScreen extends StatelessWidget {
                     child: const Text(
                       "Sign up",
                       style: TextStyle(
-                        color: Color(0xFFF99000),
+                        color: Color(0xFF480177),
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),

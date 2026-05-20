@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon_booking_app/main.dart';
+import 'package:salon_booking_app/screens/lets_you_in_screen.dart';
 // අපි ඊළඟට යන්න ඕන පේජ් එක මෙතනට Import කරගන්නවා
 
 class SplashScreen extends StatefulWidget {
@@ -25,14 +25,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const MainLayout()),
+      MaterialPageRoute(builder: (context) => const LetsYouInScreen()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF99000), // සම්පූර්ණ තැඹිලි පාට පසුබිම
+      backgroundColor: const Color(0xFF480177), // Deep Purple Background
       body: SizedBox(
         width: double.infinity,
         child: Column(

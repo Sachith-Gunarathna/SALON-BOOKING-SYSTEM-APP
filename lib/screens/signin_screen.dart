@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salon_booking_app/screens/forgot_password_screen.dart';
+import 'package:salon_booking_app/main.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -99,7 +100,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   Checkbox(
                     value: _rememberMe,
-                    activeColor: const Color(0xFFF99000),
+                    activeColor: const Color(0xFF480177),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                     onChanged: (value) {
                       setState(() {
@@ -122,10 +123,14 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     // Sign In Button Action
-                    print("Sign in clicked");
+                    debugPrint("Sign in clicked");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MainLayout()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF99000), // තැඹිලි පාට
+                    backgroundColor: const Color(0xFF480177), // Deep Purple
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -150,7 +155,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   },
                   child: const Text(
                     "Forgot the password?",
-                    style: TextStyle(color: Color(0xFFF99000), fontWeight: FontWeight.bold, fontSize: 14),
+                    style: TextStyle(color: Color(0xFF480177), fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                 ),
               ),
@@ -188,11 +193,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   GestureDetector(
                     onTap: () {
                       // Sign Up පේජ් එකට යන්න
-                      print("Navigate to Sign up");
+                      debugPrint("Navigate to Sign up");
                     },
                     child: const Text(
                       "Sign up",
-                      style: TextStyle(color: Color(0xFFF99000), fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Color(0xFF480177), fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],

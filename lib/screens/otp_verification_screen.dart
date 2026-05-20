@@ -87,7 +87,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           children: [
                             TextSpan(
                               text: "53 s",
-                              style: TextStyle(color: Color(0xFFF99000), fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Color(0xFF480177), fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -103,13 +103,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             // Verify කෝඩ් එක ගන්න විදිහ
-                            String fullOtp = "${_c1.text}${_c2.text}${_c3.text}${_c4.text}";
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => CreateNewPasswordScreen()));
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFF99000),
+                            backgroundColor: const Color(0xFF480177),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
@@ -154,7 +153,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Color(0xFFF99000), width: 2), // Select වුනාම එන තැඹිලි බෝඩරය
+            borderSide: const BorderSide(color: Color(0xFF480177), width: 2), // Select වුනාම එන තැඹිලි බෝඩරය
           ),
         ),
         onChanged: (value) {

@@ -108,14 +108,14 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFF99000) : Colors.white,
-          border: Border.all(color: const Color(0xFFF99000), width: 1.5),
+          color: isSelected ? const Color(0xFF480177) : Colors.white,
+          border: Border.all(color: const Color(0xFF480177), width: 1.5),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? Colors.white : const Color(0xFFF99000),
+            color: isSelected ? Colors.white : const Color(0xFF480177),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -137,7 +137,7 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.08),
+            color: Colors.grey.withValues(alpha: 0.08),
             spreadRadius: 2,
             blurRadius: 15,
             offset: const Offset(0, 5),
@@ -166,11 +166,11 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(Icons.location_on, color: Color(0xFFF99000), size: 16),
+                    const Icon(Icons.location_on, color: Color(0xFF480177), size: 16),
                     const SizedBox(width: 4),
                     Text(distance, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                     const SizedBox(width: 16),
-                    const Icon(Icons.star_half, color: Color(0xFFF99000), size: 16),
+                    const Icon(Icons.star_half, color: Color(0xFF480177), size: 16),
                     const SizedBox(width: 4),
                     Text(rating, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                   ],
@@ -179,7 +179,7 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.bookmark, color: Color(0xFFF99000), size: 28),
+            icon: const Icon(Icons.bookmark, color: Color(0xFF480177), size: 28),
             onPressed: () {
               // මෙතනින් තමයි යටින් එන Popup එක Call කරන්නේ
               _showRemoveBookmarkBottomSheet(context, name, address, distance, rating);
@@ -217,7 +217,7 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
-                    BoxShadow(color: Colors.grey.withOpacity(0.08), spreadRadius: 2, blurRadius: 15, offset: const Offset(0, 5)),
+                    BoxShadow(color: Colors.grey.withValues(alpha: 0.08), spreadRadius: 2, blurRadius: 15, offset: const Offset(0, 5)),
                   ],
                 ),
                 child: Row(
@@ -238,11 +238,11 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              const Icon(Icons.location_on, color: Color(0xFFF99000), size: 16),
+                              const Icon(Icons.location_on, color: Color(0xFF480177), size: 16),
                               const SizedBox(width: 4),
                               Text(distance, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                               const SizedBox(width: 16),
-                              const Icon(Icons.star_half, color: Color(0xFFF99000), size: 16),
+                              const Icon(Icons.star_half, color: Color(0xFF480177), size: 16),
                               const SizedBox(width: 4),
                               Text(rating, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                             ],
@@ -250,7 +250,7 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
                         ],
                       ),
                     ),
-                    const Icon(Icons.bookmark, color: Color(0xFFF99000), size: 28),
+                    const Icon(Icons.bookmark, color: Color(0xFF480177), size: 28),
                   ],
                 ),
               ),
@@ -268,7 +268,7 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                         elevation: 0,
                       ),
-                      child: const Text("Cancel", style: TextStyle(color: Color(0xFFF99000), fontWeight: FontWeight.bold, fontSize: 16)),
+                      child: const Text("Cancel", style: TextStyle(color: Color(0xFF480177), fontWeight: FontWeight.bold, fontSize: 16)),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -277,10 +277,10 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
                       onPressed: () {
                         // මෙතනට Bookmark එකෙන් අයින් කරන Logic එක දාන්න පුළුවන්
                         Navigator.pop(context);
-                        print("$name Removed from bookmarks");
+                        debugPrint("$name Removed from bookmarks");
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFF99000),
+                        backgroundColor: const Color(0xFF480177),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                         elevation: 0,

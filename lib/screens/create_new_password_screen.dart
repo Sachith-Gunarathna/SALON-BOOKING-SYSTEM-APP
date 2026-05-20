@@ -33,11 +33,11 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                   height: 120,
                   width: 120,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF99000),
+                    color: const Color(0xFF480177),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFFF99000).withOpacity(0.3),
+                        color: const Color(0xFF480177).withValues(alpha: 0.3),
                         blurRadius: 20,
                         spreadRadius: 5,
                       ),
@@ -55,7 +55,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 const Text(
                   "Congratulations!",
                   style: TextStyle(
-                    color: Color(0xFFF99000),
+                    color: Color(0xFF480177),
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -75,7 +75,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
 
                 // Loading Indicator එක (කැරකෙන එක)
                 const CircularProgressIndicator(
-                  color: Color(0xFFF99000),
+                  color: Color(0xFF480177),
                 ),
               ],
             ),
@@ -86,6 +86,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
 
     // තත්පර 3කට පස්සේ ඔටෝමැටික් Popup එක වැහිලා Home එකට යන විදිහ
     Future.delayed(const Duration(seconds: 3), () {
+      if (!mounted) return;
       Navigator.pop(context);
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => const SplashScreen()));
@@ -127,7 +128,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                   child: const Icon(
                     Icons.phonelink_lock,
                     size: 100,
-                    color: Color(0xFFF99000),
+                    color: Color(0xFF480177),
                   ),
                 ),
               ),
@@ -169,7 +170,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 children: [
                   Checkbox(
                     value: _rememberMe,
-                    activeColor: const Color(0xFFF99000),
+                    activeColor: const Color(0xFF480177),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                     onChanged: (value) {
                       setState(() {
@@ -195,7 +196,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                     _showSuccessDialog();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF99000),
+                    backgroundColor: const Color(0xFF480177),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),

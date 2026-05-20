@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salon_booking_app/screens/category_details_screen.dart';
+import 'package:salon_booking_app/screens/salon_details_screen.dart';
+import 'package:salon_booking_app/screens/notification_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,7 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0; // Bottom Navigation Bar එකේ තෝරාගෙන තියෙන ටැබ් එක
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: const BoxDecoration(
-                          color: Color(0xFFF99000),
+                          color: Color(0xFF480177),
                           shape: BoxShape.circle,
                         ),
                         child: const Text(
@@ -49,7 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.notifications_none, color: Colors.black),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const NotificationScreen()),
+                          );
+                        },
                       ),
                       IconButton(
                         icon: const Icon(Icons.bookmark_border, color: Colors.black),
@@ -80,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     hintText: "Search...",
                     hintStyle: TextStyle(color: Colors.grey[400]),
                     prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
-                    suffixIcon: Icon(Icons.tune, color: const Color(0xFFF99000)), // Filter Icon
+                    suffixIcon: Icon(Icons.tune, color: const Color(0xFF480177)), // Filter Icon
                     border: InputBorder.none,
                     contentPadding: const EdgeInsets.symmetric(vertical: 16),
                   ),
@@ -94,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFFFFB74D), Color(0xFFF99000)],
+                    colors: [Color(0xFFFFB74D), Color(0xFF480177)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -110,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "30% OFF",
                           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                         ),
-                        Icon(Icons.stars, color: Colors.white.withOpacity(0.5), size: 40),
+                        Icon(Icons.stars, color: Colors.white.withValues(alpha: 0.5), size: 40),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -150,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text("See All", style: TextStyle(color: Color(0xFFF99000), fontWeight: FontWeight.bold)),
+                    child: const Text("See All", style: TextStyle(color: Color(0xFF480177), fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -174,62 +180,72 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 24),
 
               // 8. Salon List Item
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SalonDetailsScreen(salonName: "Belle Curls"),
                     ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    // පින්තූරය තියෙන තැන
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(16),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withValues(alpha: 0.1),
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
                       ),
-                      child: const Icon(Icons.store, color: Colors.grey, size: 40),
-                    ),
-                    const SizedBox(width: 16),
-                    // විස්තර ටික
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text("Belle Curls", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                          const SizedBox(height: 8),
-                          Text("0993 Novick Parkway", style: TextStyle(color: Colors.grey[600], fontSize: 14)),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: [
-                              const Icon(Icons.location_on, color: Color(0xFFF99000), size: 16),
-                              const SizedBox(width: 4),
-                              const Text("1.2 km", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                              const SizedBox(width: 16),
-                              const Icon(Icons.star_half, color: Color(0xFFF99000), size: 16),
-                              const SizedBox(width: 4),
-                              const Text("4.8", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                            ],
-                          ),
-                        ],
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      // පින්තූරය තියෙන තැන
+                      Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: const Icon(Icons.store, color: Colors.grey, size: 40),
                       ),
-                    ),
-                    // Bookmark බටන් එක
-                    IconButton(
-                      icon: const Icon(Icons.bookmark, color: Color(0xFFF99000)),
-                      onPressed: () {},
-                    ),
-                  ],
+                      const SizedBox(width: 16),
+                      // විස්තර ටික
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Belle Curls", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 8),
+                            Text("0993 Novick Parkway", style: TextStyle(color: Colors.grey[600], fontSize: 14)),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                const Icon(Icons.location_on, color: Color(0xFF480177), size: 16),
+                                const SizedBox(width: 4),
+                                const Text("1.2 km", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                                const SizedBox(width: 16),
+                                const Icon(Icons.star_half, color: Color(0xFF480177), size: 16),
+                                const SizedBox(width: 4),
+                                const Text("4.8", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Bookmark බටන් එක
+                      IconButton(
+                        icon: const Icon(Icons.bookmark, color: Color(0xFF480177)),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -262,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.orange.shade50,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: const Color(0xFFF99000), size: 28),
+            child: Icon(icon, color: const Color(0xFF480177), size: 28),
           ),
           const SizedBox(height: 8),
           Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
@@ -276,14 +292,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFFF99000) : Colors.white,
-        border: Border.all(color: const Color(0xFFF99000)),
+        color: isSelected ? const Color(0xFF480177) : Colors.white,
+        border: Border.all(color: const Color(0xFF480177)),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         label,
         style: TextStyle(
-          color: isSelected ? Colors.white : const Color(0xFFF99000),
+          color: isSelected ? Colors.white : const Color(0xFF480177),
           fontWeight: FontWeight.bold,
         ),
       ),
