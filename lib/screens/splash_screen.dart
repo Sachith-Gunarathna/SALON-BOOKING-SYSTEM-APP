@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salon_booking_app/screens/lets_you_in_screen.dart';
+import 'auth/lets_you_in_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

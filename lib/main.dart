@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:salon_booking_app/providers/booking_provider.dart';
-import 'package:salon_booking_app/screens/home_screen.dart';
+import 'package:salon_booking_app/screens/main/home_screen.dart';
 import 'package:salon_booking_app/screens/splash_screen.dart';
-import 'package:salon_booking_app/screens/inbox_screen.dart';
-import 'package:salon_booking_app/screens/profile_screen.dart';
-import 'package:salon_booking_app/screens/services_screen.dart';
-import 'package:salon_booking_app/screens/gallery_screen.dart';
+import 'package:salon_booking_app/screens/communication/inbox_screen.dart';
+import 'package:salon_booking_app/screens/profile/profile_screen.dart';
+import 'package:salon_booking_app/screens/main/services_screen.dart';
+import 'package:salon_booking_app/screens/main/gallery_screen.dart';
 
 void main() {
   runApp(
@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
           secondary: Color(0xFFFDE047),
           surface: Color(0xFF120121),
         ),
-        scaffoldBackgroundColor: Color(0xFF120121),
+        scaffoldBackgroundColor: const Color(0xFF120121),
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xFF120121),
           elevation: 0,
