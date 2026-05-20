@@ -5,59 +5,67 @@ class BookingSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
               Container(
-                height: 160,
-                width: 160,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF480177),
+                height: 180,
+                width: 180,
+                decoration: BoxDecoration(
+                  color: colorScheme.primary.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.check, color: Colors.white, size: 80),
+                child: Center(
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(color: colorScheme.primary.withValues(alpha: 0.4), blurRadius: 30, spreadRadius: 5),
+                      ],
+                    ),
+                    child: const Icon(Icons.check_rounded, color: Colors.white, size: 70),
+                  ),
+                ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 48),
               const Text(
-                "Booking Successful!",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF480177)),
+                "Booking Confirmed!",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
-              const Text(
-                "You have successfully made an appointment with Belle Curls.",
+              Text(
+                "Your premium experience at Aura Bloom is scheduled. We look forward to seeing you!",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.black87),
+                style: TextStyle(fontSize: 16, color: Colors.grey[600], height: 1.5),
               ),
               const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).popUntil((route) => route.isFirst);
-                  },
-                  child: const Text("View Receipt", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+                child: const Text("View Receipt", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.of(context).popUntil((route) => route.isFirst);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Color(0xFF480177)),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                  ),
-                  child: const Text("Go to Home", style: TextStyle(color: Color(0xFF480177), fontWeight: FontWeight.bold)),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 56),
+                  side: BorderSide(color: colorScheme.primary),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
+                child: Text("Go to Dashboard", style: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.bold)),
               ),
             ],
           ),

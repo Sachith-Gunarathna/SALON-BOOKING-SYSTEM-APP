@@ -9,230 +9,82 @@ class CreateNewPasswordScreen extends StatefulWidget {
 }
 
 class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
-  bool _isPasswordVisible = false;
-  bool _isConfirmPasswordVisible = false;
-  bool _rememberMe = false;
+  bool _isVisible = false;
 
-  // Popup එක පෙන්නන Function එක
   void _showSuccessDialog() {
+    final colorScheme = Theme.of(context).colorScheme;
     showDialog(
       context: context,
-      barrierDismissible: false, // වටේ ක්ලික් කරාම වැහෙන්නේ නැති වෙන්න
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40),
+      barrierDismissible: false,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+        child: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(color: colorScheme.primary, shape: BoxShape.circle),
+                child: const Icon(Icons.check_rounded, color: Colors.white, size: 60),
+              ),
+              const SizedBox(height: 32),
+              const Text("Success!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 16),
+              const Text(
+                "Your password has been reset. You'll be redirected shortly.",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey),
+              ),
+              const SizedBox(height: 32),
+              CircularProgressIndicator(color: colorScheme.primary),
+            ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 24.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // හරි ලකුණ තියෙන තැඹිලි පාට රවුම
-                Container(
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF480177),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF480177).withValues(alpha: 0.3),
-                        blurRadius: 20,
-                        spreadRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 60,
-                  ),
-                ),
-                const SizedBox(height: 32),
-
-                // මාතෘකාව
-                const Text(
-                  "Congratulations!",
-                  style: TextStyle(
-                    color: Color(0xFF480177),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // විස්තරය
-                const Text(
-                  "Your account is ready to use. You will be redirected to the Home page in a few seconds.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 32),
-
-                // Loading Indicator එක (කැරකෙන එක)
-                const CircularProgressIndicator(
-                  color: Color(0xFF480177),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+        ),
+      ),
     );
 
-    // තත්පර 3කට පස්සේ ඔටෝමැටික් Popup එක වැහිලා Home එකට යන විදිහ
     Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
-      Navigator.pop(context);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const SplashScreen()));
-     
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SplashScreen()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          "Create New Password",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Illustration Placeholder
-              Center(
-                child: Container(
-                  height: 200,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.orange.shade50,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Icon(
-                    Icons.phonelink_lock,
-                    size: 100,
-                    color: Color(0xFF480177),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-
-              const Text(
-                "Create Your New Password",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87),
-              ),
-              const SizedBox(height: 20),
-
-              // Password Field
-              _buildPasswordField(
-                hintText: "Password",
-                isVisible: _isPasswordVisible,
-                onVisibilityChanged: () {
-                  setState(() {
-                    _isPasswordVisible = !_isPasswordVisible;
-                  });
-                },
-              ),
-              const SizedBox(height: 20),
-
-              // Confirm Password Field
-              _buildPasswordField(
-                hintText: "Confirm Password",
-                isVisible: _isConfirmPasswordVisible,
-                onVisibilityChanged: () {
-                  setState(() {
-                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                  });
-                },
-              ),
-              const SizedBox(height: 20),
-
-              // Remember me Checkbox
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    value: _rememberMe,
-                    activeColor: const Color(0xFF480177),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                    onChanged: (value) {
-                      setState(() {
-                        _rememberMe = value ?? false;
-                      });
-                    },
-                  ),
-                  const Text(
-                    "Remember me",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-
-              // Continue Button එක
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // බටන් එක එබුවම අර හදපු Popup Function එක කෝල් වෙනවා
-                    _showSuccessDialog();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF480177),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: const Text(
-                    "Continue",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
-          ),
+      appBar: AppBar(title: const Text("New Password")),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            _buildField("New Password"),
+            const SizedBox(height: 20),
+            _buildField("Confirm Password"),
+            const SizedBox(height: 48),
+            ElevatedButton(
+              onPressed: _showSuccessDialog,
+              child: const Text("Reset Password"),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  // Password ගහන කොටුව හදන Custom Widget එක
-  Widget _buildPasswordField({required String hintText, required bool isVisible, required VoidCallback onVisibilityChanged}) {
+  Widget _buildField(String hint) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(16),
-      ),
+      decoration: BoxDecoration(color: Colors.grey[50], borderRadius: BorderRadius.circular(16)),
       child: TextField(
-        obscureText: !isVisible,
+        obscureText: !_isVisible,
         decoration: InputDecoration(
-          hintText: hintText,
-          prefixIcon: Icon(Icons.lock, color: Colors.grey[400]),
+          hintText: hint,
+          prefixIcon: const Icon(Icons.lock_outline_rounded, color: Colors.grey),
           suffixIcon: IconButton(
-            icon: Icon(
-              isVisible ? Icons.visibility : Icons.visibility_off,
-              color: Colors.grey[400],
-            ),
-            onPressed: onVisibilityChanged,
+            icon: Icon(_isVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: Colors.grey),
+            onPressed: () => setState(() => _isVisible = !_isVisible),
           ),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(vertical: 18),

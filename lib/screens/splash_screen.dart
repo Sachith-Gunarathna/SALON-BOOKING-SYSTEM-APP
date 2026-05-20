@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:salon_booking_app/screens/lets_you_in_screen.dart';
-// අපි ඊළඟට යන්න ඕන පේජ් එක මෙතනට Import කරගන්නවා
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,11 +15,8 @@ class _SplashScreenState extends State<SplashScreen> {
     _navigateToHome();
   }
 
-  // තත්පර 3කින් ඔටෝමැටික් ඊළඟ පේජ් එකට යන ෆන්ක්ෂන් එක
   Future<void> _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3), () {});
-
-    // Mount වෙලාද කියලා චෙක් කරලා තමයි Navigate කරන්නේ (Error එන එක නවත්වන්න)
     if (!mounted) return;
 
     Navigator.pushReplacement(
@@ -31,35 +27,70 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF480177), // Deep Purple Background
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(),
+    final colorScheme = Theme.of(context).colorScheme;
 
-            // ලෝගෝ අකුර (C)
-            const Text(
-              "C",
-              style: TextStyle(
-                fontSize: 140,
-                color: Colors.white,
-                fontFamily: 'cursive', // අකුරේ හැඩය ලස්සන කරන්න
-                fontStyle: FontStyle.italic,
+    return Scaffold(
+      backgroundColor: colorScheme.primary,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  colors: [colorScheme.secondary.withValues(alpha: 0.3), Colors.transparent],
+                  center: Alignment.center,
+                  radius: 1.2,
+                ),
               ),
             ),
-
-            const Spacer(),
-
-            // යටින් තියෙන Loading Indicator එක
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: 'app_logo',
+                  child: Icon(
+                    Icons.auto_awesome_rounded,
+                    size: 100,
+                    color: colorScheme.tertiary,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  "AURA BLOOM",
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 6,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "THE ART OF BEAUTY",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white.withValues(alpha: 0.7),
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 60), // යටින් තියෙන ඉඩ ප්‍රමාණය
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: 60,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(colorScheme.tertiary),
+                strokeWidth: 2,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

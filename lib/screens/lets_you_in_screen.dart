@@ -1,150 +1,96 @@
 import 'package:flutter/material.dart';
 import 'package:salon_booking_app/screens/signin_screen.dart';
+import 'package:salon_booking_app/screens/signup_screen.dart';
 
 class LetsYouInScreen extends StatelessWidget {
   const LetsYouInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
+    final colorScheme = Theme.of(context).colorScheme;
 
-          },
-        ),
-      ),
+    return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
-
-
-              Container(
-                height: 200,
-                width: 250,
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.image_outlined,
-                  size: 80,
-                  color: Colors.orange[200],
+              const SizedBox(height: 60),
+              Hero(
+                tag: 'app_logo',
+                child: Container(
+                  height: 180,
+                  width: 180,
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary.withValues(alpha: 0.05),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.auto_awesome_rounded,
+                    size: 80,
+                    color: colorScheme.primary,
+                  ),
                 ),
               ),
-              const SizedBox(height: 32),
-
-
+              const SizedBox(height: 48),
               const Text(
-                "Let's you in",
+                "Experience Luxury",
                 style: TextStyle(
-                  fontSize: 36,
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  letterSpacing: -1,
                 ),
               ),
-              const SizedBox(height: 32),
-
-
-              _buildSocialButton(
-                icon: Icons.facebook,
-                iconColor: Colors.blue,
-                text: "Continue with Facebook",
-                onPressed: () {},
+              const SizedBox(height: 12),
+              Text(
+                "Welcome to Aura Bloom. Sign in to access our exclusive services.",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
+              const SizedBox(height: 48),
+
+              _buildSocialButton(Icons.g_mobiledata, "Continue with Google", () {}),
               const SizedBox(height: 16),
-
-              _buildSocialButton(
-                icon: Icons.g_mobiledata,
-                iconColor: Colors.red,
-                text: "Continue with Google",
-                iconSize: 32,
-                onPressed: () {},
-              ),
-              const SizedBox(height: 16),
-
-              _buildSocialButton(
-                icon: Icons.apple,
-                iconColor: Colors.black,
-                text: "Continue with Apple",
-                onPressed: () {},
-              ),
+              _buildSocialButton(Icons.apple, "Continue with Apple", () {}),
+              
               const SizedBox(height: 32),
-
-
               Row(
                 children: [
-                  Expanded(child: Divider(color: Colors.grey[300], thickness: 1)),
+                  Expanded(child: Divider(color: Colors.grey[200])),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text("or", style: TextStyle(color: Colors.grey, fontSize: 16)),
+                    child: Text("or", style: TextStyle(color: Colors.grey)),
                   ),
-                  Expanded(child: Divider(color: Colors.grey[300], thickness: 1)),
+                  Expanded(child: Divider(color: Colors.grey[200])),
                 ],
               ),
               const SizedBox(height: 32),
 
-
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () {
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignInScreen()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF480177),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: const Text(
-                    "Sign in with password",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SignInScreen()),
+                  );
+                },
+                child: const Text("Sign in with Password"),
               ),
-              const SizedBox(height: 24),
-
-
+              
+              const SizedBox(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    "Don't have an account? ",
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
-                  ),
+                  Text("New to Aura Bloom? ", style: TextStyle(color: Colors.grey[600])),
                   GestureDetector(
-                      onLongPress: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const SignInScreen()),
-                        );
-                      },
-                    child: const Text(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                      );
+                    },
+                    child: Text(
                       "Sign up",
-                      style: TextStyle(
-                        color: Color(0xFF480177),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -157,37 +103,21 @@ class LetsYouInScreen extends StatelessWidget {
     );
   }
 
-  // Social Buttons හදන Custom Widget එක
-  Widget _buildSocialButton({
-    required IconData icon,
-    required Color iconColor,
-    required String text,
-    required VoidCallback onPressed,
-    double iconSize = 24,
-  }) {
+  Widget _buildSocialButton(IconData icon, String text, VoidCallback onPressed) {
     return SizedBox(
       height: 56,
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.grey.shade200, width: 1.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
+          side: BorderSide(color: Colors.grey[200]!),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: iconColor, size: iconSize),
+            Icon(icon, size: 28, color: Colors.black),
             const SizedBox(width: 12),
-            Text(
-              text,
-              style: const TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            Text(text, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

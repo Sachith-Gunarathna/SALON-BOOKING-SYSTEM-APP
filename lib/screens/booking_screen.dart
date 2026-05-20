@@ -14,33 +14,27 @@ class _BookingScreenState extends State<BookingScreen> {
   DateTime _selectedDate = DateTime.now();
   String _selectedTime = "10:00 AM";
   String _selectedSpecialist = "Nathan";
+  bool _acceptedPolicy = false;
 
   final List<String> _timeSlots = [
     "09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM"
   ];
 
   final List<Map<String, String>> _specialists = [
-    {"name": "Nathan", "role": "Senior Barber"},
-    {"name": "Jenny", "role": "Hair Stylist"},
-    {"name": "Oscar", "role": "Master Barber"},
+    {"name": "Nathan", "role": "Master Barber"},
+    {"name": "Jenny", "role": "Color Expert"},
+    {"name": "Oscar", "role": "Stylist"},
     {"name": "Bella", "role": "Makeup Artist"},
   ];
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          "Book Appointment",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
+        title: const Text("Book Appointment"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
@@ -51,7 +45,7 @@ class _BookingScreenState extends State<BookingScreen> {
             const Text("Select Specialist", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
             SizedBox(
-              height: 100,
+              height: 120,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: _specialists.length,
@@ -64,22 +58,37 @@ class _BookingScreenState extends State<BookingScreen> {
                       });
                     },
                     child: Container(
-                      width: 80,
+                      width: 90,
                       margin: const EdgeInsets.only(right: 16),
                       child: Column(
                         children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: isSelected ? const Color(0xFF480177) : Colors.grey[200],
-                            child: Icon(Icons.person, color: isSelected ? Colors.white : Colors.grey),
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: isSelected ? colorScheme.primary : Colors.transparent,
+                                width: 2,
+                              ),
+                            ),
+                            child: CircleAvatar(
+                              radius: 30,
+                              backgroundColor: isSelected ? colorScheme.primary : Colors.grey[200],
+                              child: Icon(Icons.person, color: isSelected ? Colors.white : Colors.grey),
+                            ),
                           ),
                           const SizedBox(height: 8),
                           Text(
                             _specialists[index]["name"]!,
                             style: TextStyle(
                               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                              color: isSelected ? const Color(0xFF480177) : Colors.black,
+                              color: isSelected ? colorScheme.primary : colorScheme.onSurface,
                             ),
+                          ),
+                          Text(
+                            _specialists[index]["role"]!,
+                            style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
@@ -90,18 +99,27 @@ class _BookingScreenState extends State<BookingScreen> {
             ),
             const SizedBox(height: 32),
 
-            // 2. Select Date (Simplified)
+            // 2. Select Date
             const Text("Select Date", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
-            CalendarDatePicker(
-              initialDate: _selectedDate,
-              firstDate: DateTime.now(),
-              lastDate: DateTime.now().add(const Duration(days: 30)),
-              onDateChanged: (date) {
-                setState(() {
-                  _selectedDate = date;
-                });
-              },
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10),
+                ],
+              ),
+              child: CalendarDatePicker(
+                initialDate: _selectedDate,
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(const Duration(days: 30)),
+                onDateChanged: (date) {
+                  setState(() {
+                    _selectedDate = date;
+                  });
+                },
+              ),
             ),
             const SizedBox(height: 32),
 
@@ -122,20 +140,69 @@ class _BookingScreenState extends State<BookingScreen> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                      color: isSelected ? const Color(0xFF480177) : Colors.white,
-                      border: Border.all(color: const Color(0xFF480177)),
+                      color: isSelected ? colorScheme.primary : Colors.white,
+                      border: Border.all(color: colorScheme.primary),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       time,
                       style: TextStyle(
-                        color: isSelected ? Colors.white : const Color(0xFF480177),
+                        color: isSelected ? Colors.white : colorScheme.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 );
               }).toList(),
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // 4. Cancellation Policy
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.red.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.red.withValues(alpha: 0.1)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      Icon(Icons.info_outline_rounded, color: Colors.red, size: 20),
+                      SizedBox(width: 8),
+                      Text("Cancellation Policy", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Free cancellation up to 24 hours before your appointment. Late cancellations or no-shows may incur a 50% fee.",
+                    style: TextStyle(fontSize: 12, color: Colors.red[900]),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: _acceptedPolicy,
+                        activeColor: Colors.red,
+                        onChanged: (v) {
+                          setState(() {
+                            _acceptedPolicy = v ?? false;
+                          });
+                        },
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "I understand and agree to the policy.",
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 40),
           ],
@@ -144,22 +211,29 @@ class _BookingScreenState extends State<BookingScreen> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(24),
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: _acceptedPolicy ? () {
              Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => ReviewSummaryScreen(
                   salonName: widget.salonName,
                   specialist: _selectedSpecialist,
-                  date: "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
+                  date: "${_selectedDate.day} ${_getMonthName(_selectedDate.month)} ${_selectedDate.year}",
                   time: _selectedTime,
                 ),
               ),
             );
-          },
+          } : null,
           child: const Text("Continue", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         ),
       ),
     );
+  }
+
+  String _getMonthName(int month) {
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+    return months[month - 1];
   }
 }

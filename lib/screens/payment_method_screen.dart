@@ -9,35 +9,28 @@ class PaymentMethodScreen extends StatefulWidget {
 }
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
-  String _selectedMethod = "PayPal";
+  String _selectedMethod = "Apple Pay";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          "Payment Method",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
+        title: const Text("Payment Method"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Select the payment method you want to use.", style: TextStyle(fontSize: 16)),
-            const SizedBox(height: 24),
-            _buildPaymentItem("PayPal", Icons.account_balance_wallet_outlined),
-            _buildPaymentItem("Google Pay", Icons.account_balance_outlined),
-            _buildPaymentItem("Apple Pay", Icons.apple),
-            _buildPaymentItem("Credit Card", Icons.credit_card),
+            const Text(
+              "Select your preferred secure payment method.",
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            const SizedBox(height: 32),
+            _buildPaymentItem("Apple Pay", Icons.apple, subtitle: "Instant secure payment"),
+            _buildPaymentItem("Google Pay", Icons.account_balance_outlined, subtitle: "Fast checkout"),
+            _buildPaymentItem("Credit/Debit Card", Icons.credit_card_rounded, subtitle: "Visa, Mastercard, Amex"),
+            _buildPaymentItem("PayPal", Icons.account_balance_wallet_outlined, subtitle: "Safe and easy"),
           ],
         ),
       ),
@@ -50,14 +43,16 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               MaterialPageRoute(builder: (context) => const BookingSuccessScreen()),
             );
           },
-          child: const Text("Continue", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          child: const Text("Complete Transaction", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         ),
       ),
     );
   }
 
-  Widget _buildPaymentItem(String name, IconData icon) {
+  Widget _buildPaymentItem(String name, IconData icon, {required String subtitle}) {
+    final colorScheme = Theme.of(context).colorScheme;
     bool isSelected = _selectedMethod == name;
+    
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -65,25 +60,42 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
         });
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: isSelected ? const Color(0xFF480177) : Colors.grey[200]!,
+            color: isSelected ? colorScheme.primary : colorScheme.onSurface.withValues(alpha: 0.05),
             width: 2,
           ),
+          boxShadow: isSelected ? [
+            BoxShadow(color: colorScheme.primary.withValues(alpha: 0.1), blurRadius: 20, offset: const Offset(0, 10)),
+          ] : [],
         ),
         child: Row(
           children: [
-            Icon(icon, color: isSelected ? const Color(0xFF480177) : Colors.black, size: 30),
-            const SizedBox(width: 16),
-            Text(name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            const Spacer(),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: isSelected ? colorScheme.primary.withValues(alpha: 0.1) : Colors.grey[50],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: isSelected ? colorScheme.primary : Colors.grey[400], size: 28),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                ],
+              ),
+            ),
             Icon(
               isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
-              color: const Color(0xFF480177),
+              color: isSelected ? colorScheme.primary : Colors.grey[300],
             ),
           ],
         ),
